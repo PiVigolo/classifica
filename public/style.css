@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* LAYOUT PRINCIPALE */
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    height: calc(100vh - 40px);
+}
+
+/* COLONNA SINISTRA */
+
+.left-panel {
+    overflow-y: auto;
+}
+
+/* COLONNA DESTRA */
+
+.right-panel {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+}
+.right-layout{
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 100%;
+    height: 100%;
+}
+
+/* HEADER */
+
+.logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 180px;
+    border-radius: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 42px;
+}
+
+ 
+
+/* CLASSIFICA */
+
+.container {
+    width: 100%;
+}
+
+.card {
+    background: #222;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 0 10px rgba(255,255,255,0.05);
+}
+
+.classifica-item {
+    font-size: 34px;
+    font-weight: bold;
+}
+
+/* ADMIN */
+
+.admin-card {
+    position: relative;
+}
+
+.counter {
+    font-size: 40px;
+    color: lime;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+button {
+    background: limegreen;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 24px;
+    cursor: pointer;
+
+    transition: transform 0.1s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.clicked {
+    transform: scale(1.15);
+}
+
+/* ANIMAZIONE +1 */
+
+.button-area {
+    position: relative;
+}
+
+.plusone {
+    position: absolute;
+    right: 10px;
+    top: -10px;
+
+    font-size: 30px;
+    color: lime;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.show {
+    animation: fly 0.7s ease;
+}
+
+@keyframes fly {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+}
+
+/* IMMAGINI DESTRA */
+
+.side-image {
+    width: 50%;
+    height: 50%;
+    background: #222;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.08);
+}

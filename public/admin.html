@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Bevande</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Controllo Bevande</h1>
+
+    <div id="squadre"></div>
+</div>
+
+<script src="script.js"></script>
+
+<script>
+const squadre = [
+    "Squadra Rossa",
+    "Squadra Blu",
+    "Squadra Verde",
+    "Squadra Gialla",
+    "Squadra Maron"
+];
+
+async function creaAdmin() {
+    const dati = await caricaClassifica();
+
+    const container = document.getElementById("squadre");
+
+    squadre.forEach(nome => {
+
+        const card = document.createElement("div");
+        card.className = "card admin-card";
+
+        card.innerHTML = `
+            <div>
+                <h2>${nome}</h2>
+                <div class="counter" id="count-${nome}">
+                    ${dati[nome]}
+                </div>
+            </div>
+
+            <div class="button-area">
+                <button onclick="clickSquadra('${nome}', this)">
+                    +1
+                </button>
+
+                <div class="plusone">+1</div>
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+async function clickSquadra(nome, bottone) {
+
+    await aggiungiPunto(nome);
+
+    const dati = await caricaClassifica();
+
+    document.getElementById(`count-${nome}`).innerText = dati[nome];
+
+    // Animazione bottone
+    bottone.classList.add("clicked");
+
+    setTimeout(() => {
+        bottone.classList.remove("clicked");
+    }, 200);
+
+    // Mostra +1
+    const plus = bottone.parentElement.querySelector(".plusone");
+
+    plus.classList.add("show");
+
+    setTimeout(() => {
+        plus.classList.remove("show");
+    }, 700);
+}
+
+creaAdmin();
+</script>
+
+</body>
+</html>

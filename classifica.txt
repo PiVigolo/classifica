@@ -1,0 +1,5 @@
+Squadra Rossa: 14 bevande
+Squadra Blu: 1 bevande
+Squadra Verde: 10 bevande
+Squadra Gialla: 11 bevande
+Squadra Maron: 4 bevande
