@@ -1,6 +1,6 @@
 EX-YU: 0 bevande
-AUREAL FACE: 56 bevande
-SBRONZI DI RIACE: 55 bevande
+AUREAL FACE: 0 bevande
+SBRONZI DI RIACE: 0 bevande
 SEVEN GROUP: 0 bevande
 NATJIVE: 0 bevande
 IMPR. CAPOVILLA: 0 bevande
@@ -13,4 +13,4 @@ G STARS: 0 bevande
 PMC CINGHIOS: 0 bevande
 VERNICIATURA PAREBON: 0 bevande
 GAINA TEAM: 0 bevande
-FAVELAS FC: 5 bevande
+FAVELAS FC: 0 bevande
