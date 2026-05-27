@@ -76,6 +76,20 @@ app.post('/api/addfive', (req, res) => {
     res.json(dati);
 });
 
+// Imposta un valore preciso scelto dall'utente
+app.post('/api/set', (req, res) => {
+    const { squadra, valore } = req.body;
+
+    const dati = leggiDati();
+
+    if (dati[squadra] !== undefined) {
+        dati[squadra] = parseInt(valore); // Assegna direttamente il nuovo valore numerico
+        salvaDati(dati);
+    }
+
+    res.json(dati);
+});
+
 app.listen(PORT, () => {
     console.log(`Server avviato su http://localhost:${PORT}`);
 });
