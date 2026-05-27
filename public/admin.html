@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Bevande</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="adminBody">
+
+    <div class="container">
+        <h1>Controllo Bevande</h1>
+
+        <div id="squadre"></div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        const squadre = [
+            "EX-YU",
+            "AUREAL FACE",
+            "SBRONZI DI RIACE",
+            "SEVEN GROUP",
+            "NATJIVE",
+            "IMPR. CAPOVILLA",
+            "PROSPETTIVA VINCENTE",
+            "FC ONE ERECTION",
+            "FUTSAL 360",
+            "LEODARI JUNIORES",
+            "CAMPARI FC",
+            "G STARS",
+            "PMC CINGHIOS",
+            "VERNICIATURA PAREBON",
+            "GAINA TEAM",
+            "FAVELAS FC"
+        ];
+
+        async function creaAdmin() {
+            const dati = await caricaClassifica();
+            const container = document.getElementById("squadre");
+
+            squadre.forEach(nome => {
+                const card = document.createElement("div");
+                card.className = "card admin-card";
+
+                // NOTA: Passiamo 1 nel primo bottone e -1 nel secondo bottone
+                card.innerHTML = `
+            <div>
+                <h2>${nome}</h2>
+                <div class="counter" id="count-${nome}">
+                    ${dati[nome]}
+                </div>
+            </div>
+
+            <div class="button-area">
+                <button onclick="clickSquadra('${nome}', this, 1)">
+                    +1
+                </button>
+
+                <div class="plusone">+1</div>
+                
+                <button class="minus" onclick="clickSquadra('${nome}', this, -1)">
+                    -1
+                </button>
+
+                <div class="minusone">-1</div>
+
+                <button onclick="clickSquadra('${nome}', this, 5)">
+                    +5
+                </button>
+
+                <div class="plusfive">+5</div>
+                <div class="set-value-area" style="margin-top: 15px; display: flex; gap: 5px;">
+                    <input type="number" id="input-${nome}" placeholder="Valore" min="0" style="width: 70px; padding: 5px; text-align: center;">
+                    <button onclick="inviaValoreManuale('${nome}')" style="padding: 5px 10px; cursor: pointer;">Imposta</button>
+                </div>
+            </div>
+            
+        `;
+
+                container.appendChild(card);
+            });
+        }
+        //per il valore diretto
+        async function inviaValoreManuale(nome) {
+            const inputElement = document.getElementById(`input-${nome}`);
+            const valore = parseInt(inputElement.value);
+
+            // Controllo che sia un numero valido e non sia vuoto
+            if (isNaN(valore) || valore < 0) {
+                alert("Inserisci un numero valido maggiore o uguale a 0");
+                return;
+            }
+
+            // Chiama la nuova funzione che scriveremo in script.js
+            await impostaPunti(nome, valore);
+
+            // Aggiorna il contatore visivo sulla card
+            const dati = await caricaClassifica();
+            document.getElementById(`count-${nome}`).innerText = dati[nome];
+
+            // Svuota il campo di input dopo aver salvato
+            inputElement.value = '';
+        }
+
+        // Aggiunto il valore (1 o -1)
+        async function clickSquadra(nome, bottone, valore) {
+            // Chiama la funzione corretta di script.js in base al bottone
+            if (valore === 1) {
+                await aggiungiPunto(nome);
+            } else if (valore === 5) {
+                await aggiungiCinque(nome);
+            } else {
+                await togliPunto(nome);
+            }
+
+            const dati = await caricaClassifica();
+
+            document.getElementById(`count-${nome}`).innerText = dati[nome];
+
+            // Animazione bottone
+            bottone.classList.add("clicked");
+
+            setTimeout(() => {
+                bottone.classList.remove("clicked");
+            }, 200);
+
+            // Gestione differenziata delle scritte visive (+1 o -1)
+            if (valore === 1) {
+                const plus = bottone.parentElement.querySelector(".plusone");
+                plus.classList.add("show");
+
+                setTimeout(() => {
+                    plus.classList.remove("show");
+                }, 700);
+            } else if (valore == 5) {
+                const plusfive = bottone.parentElement.querySelector(".plusfive");
+                plusfive.classList.add("show");
+
+                setTimeout(() => {
+                    plusfive.classList.remove("show");
+                }, 700);
+            }
+            else {
+                const minus = bottone.parentElement.querySelector(".minusone");
+                minus.classList.add("show");
+
+                setTimeout(() => {
+                    minus.classList.remove("show");
+                }, 700);
+            }
+        }
+
+        creaAdmin();
+    </script>
+
+</body>
+
+</html>
