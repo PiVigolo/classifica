@@ -1,107 +1,106 @@
-async function caricaClassifica() {
-    const response = await fetch('/api/classifica');
-    const dati = await response.json();
-
-    return dati;
-}
-
-async function aggiungiPunto(squadra) {
-    await fetch('/api/add', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ squadra })
+// 1. CARICA CLASSIFICA (Compatibile con vecchie TV - Usa XMLHttpRequest anziché Fetch)
+function caricaClassifica() {
+    return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/api/classifica', true);
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    var dati = JSON.parse(xhr.responseText);
+                    resolve(dati);
+                } catch (e) {
+                    reject("Errore dati JSON");
+                }
+            } else {
+                reject("Errore server: " + xhr.status);
+            }
+        };
+        xhr.onerror = function() {
+            reject("Errore di rete");
+        };
+        xhr.send();
     });
-
-    if (document.getElementById('classifica')) {
-        aggiornaPagina();
-    }
-}
-async function aggiungiCinque(squadra) {
-    await fetch('/api/addfive', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ squadra })
-    });
-
-    if (document.getElementById('classifica')) {
-        aggiornaPagina();
-    }
 }
 
-async function togliPunto(squadra) {
-    // 🚀 MODIFICATO: Ora punta a /api/remove (cambialo se il tuo backend usa un nome diverso, es. /api/sub)
-    await fetch('/api/remove', { 
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ squadra })
-    });
-
-    if (document.getElementById('classifica')) {
-        aggiornaPagina();
-    }
+// FUNZIONE GENERICA PER INVIARE I DATI AL SERVER (Sostituisce i Fetch POST)
+function inviaDatiPost(url, payload) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            if (document.getElementById('classifica')) {
+                aggiornaPagina();
+            }
+        }
+    };
+    xhr.send(JSON.stringify(payload));
 }
-async function impostaPunti(squadra, valore) {
-    await fetch('/api/set', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ squadra, valore }) // Spedisce squadra e il numero preciso
-    });
 
-    if (document.getElementById('classifica')) {
-        aggiornaPagina();
-    }
+// 2. AZIONI PULSANTI (Niente async/await, niente variabili contratte)
+function aggiungiPunto(squadra) {
+    inviaDatiPost('/api/add', { squadra: squadra });
 }
-async function aggiornaPagina() {
-    // Usiamo un try/catch per evitare che un errore blocchi tutto il resto
-    try {
-        const dati = await caricaClassifica();
-        const container = document.getElementById('classifica');
 
-        if (!container) return; 
+function aggiungiCinque(squadra) {
+    inviaDatiPost('/api/addfive', { squadra: squadra });
+}
+
+function togliPunto(squadra) {
+    inviaDatiPost('/api/remove', { squadra: squadra });
+}
+
+function impostaPunti(squadra, valore) {
+    inviaDatiPost('/api/set', { squadra: squadra, valore: valore });
+}
+
+// 3. AGGIORNA LA PAGINA (Sintassi ES5 ultra-compatibile)
+function aggiornaPagina() {
+    caricaClassifica().then(function(dati) {
+        var container = document.getElementById('classifica');
+        if (!container) return;
 
         container.innerHTML = '';
 
-        // Trasformiamo l'oggetto in array in modo compatibile con le vecchie TV
-        const chiavi = Object.keys(dati);
-        const ordinate = [];
-        
+        var chiavi = Object.keys(dati);
+        var ordinate = [];
+
         for (var i = 0; i < chiavi.length; i++) {
             var nomeSquadra = chiavi[i];
             var puntiSquadra = dati[nomeSquadra];
             ordinate.push({ nome: nomeSquadra, punti: puntiSquadra });
         }
 
-        // Ordiniamo l'array dal punteggio più alto al più basso
+        // Ordinamento decrescente
         ordinate.sort(function(a, b) {
             return b.punti - a.punti;
         });
 
-        // Creiamo le card usando un ciclo for classico (super compatibile)
+        // Creazione elementi HTML (Card)
         for (var j = 0; j < ordinate.length; j++) {
             var squadra = ordinate[j];
             var div = document.createElement('div');
             div.className = 'card classifica-item';
 
-            // Usiamo il concatenamento classico invece dei backtick (`) se la TV fosse vecchissima
             div.innerHTML = '<div>' + (j + 1) + '. ' + squadra.nome + '</div>' +
                             '<div>' + squadra.punti + '</div>';
 
             container.appendChild(div);
         }
-    } catch (errore) {
-        // Se c'è ancora un errore, lo scrive a schermo così capiamo cosa non va
-        console.error("Errore nel caricamento delle card: ", errore);
-    }
+    }).catch(function(errore) {
+        // Se la TV fallisce la richiesta, ti scrive il motivo direttamente dentro il contenitore
+        var container = document.getElementById('classifica');
+        if (container && container.innerHTML === '') {
+            container.innerHTML = '<div style="color: red; text-align: center; font-size: 20px; padding: 20px;">' + errore + '</div>';
+        }
+        console.error("Errore: ", errore);
+    });
 }
 
+// 4. AVVIO DEL TIMER DI AGGIORNAMENTO
 if (document.getElementById('classifica')) {
+    // Esegue subito un primo avvio al caricamento
+    aggiornaPagina();
+    // Poi ripete ogni secondo
     setInterval(aggiornaPagina, 1000);
 }
