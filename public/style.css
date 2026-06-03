@@ -36,7 +36,7 @@ body::before {
 }
 
 /*logo*/
-/*body::after {
+body::after {
     content: "";
     position: fixed;
     top: 30px;
@@ -47,13 +47,13 @@ body::before {
 
     background-image: url('logo.png');
     background-size: contain;
-    /* Adatta il logo senza distorcerlo 
+    /* Adatta il logo senza distorcerlo */
     background-position: top right;
     background-repeat: no-repeat;
 
     pointer-events: none;
     filter: invert(1);
-}*/
+}
 
 body.nascondi-scroll {
     -ms-overflow-style: none;
