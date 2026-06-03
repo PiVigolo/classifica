@@ -60,31 +60,46 @@ async function impostaPunti(squadra, valore) {
     }
 }
 async function aggiornaPagina() {
-    const dati = await caricaClassifica();
-    const container = document.getElementById('classifica');
+    // Usiamo un try/catch per evitare che un errore blocchi tutto il resto
+    try {
+        const dati = await caricaClassifica();
+        const container = document.getElementById('classifica');
 
-    if (!container) return; 
+        if (!container) return; 
 
-    container.innerHTML = '';
+        container.innerHTML = '';
 
-    const ordinate = Object.entries(dati)
-        .sort((a, b) => b[1] - a[1]);
+        // Trasformiamo l'oggetto in array in modo compatibile con le vecchie TV
+        const chiavi = Object.keys(dati);
+        const ordinate = [];
+        
+        for (var i = 0; i < chiavi.length; i++) {
+            var nomeSquadra = chiavi[i];
+            var puntiSquadra = dati[nomeSquadra];
+            ordinate.push({ nome: nomeSquadra, punti: puntiSquadra });
+        }
 
-    ordinate.forEach(([nome, punti], index) => {
-        const div = document.createElement('div');
-        div.className = 'card classifica-item';
+        // Ordiniamo l'array dal punteggio più alto al più basso
+        ordinate.sort(function(a, b) {
+            return b.punti - a.punti;
+        });
 
-        div.innerHTML = `
-            <div>
-                ${index + 1}. ${nome}
-            </div>
-            <div>
-                ${punti}
-            </div>
-        `;
+        // Creiamo le card usando un ciclo for classico (super compatibile)
+        for (var j = 0; j < ordinate.length; j++) {
+            var squadra = ordinate[j];
+            var div = document.createElement('div');
+            div.className = 'card classifica-item';
 
-        container.appendChild(div);
-    });
+            // Usiamo il concatenamento classico invece dei backtick (`) se la TV fosse vecchissima
+            div.innerHTML = '<div>' + (j + 1) + '. ' + squadra.nome + '</div>' +
+                            '<div>' + squadra.punti + '</div>';
+
+            container.appendChild(div);
+        }
+    } catch (errore) {
+        // Se c'è ancora un errore, lo scrive a schermo così capiamo cosa non va
+        console.error("Errore nel caricamento delle card: ", errore);
+    }
 }
 
 if (document.getElementById('classifica')) {
