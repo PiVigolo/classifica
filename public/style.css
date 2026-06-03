@@ -54,6 +54,15 @@ body::after {
     pointer-events: none;
     filter: invert(1);
 }
+#adminBody::before {
+    background-color: black;
+    background-image: none !important;
+}
+
+/* RIMUOVE IL LOGO DALLA PAGINA ADMIN */
+#adminBody::after {
+    content: none !important; /* Rimuove lo pseudo-elemento che contiene il logo */
+}
 
 body.nascondi-scroll {
     -ms-overflow-style: none;
