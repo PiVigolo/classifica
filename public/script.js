@@ -104,3 +104,24 @@ if (document.getElementById('classifica')) {
     // Poi ripete ogni secondo
     setInterval(aggiornaPagina, 1000);
 }
+// Forza lo schermo intero al primo tocco sul tablet
+function attivaSchermoIntero() {
+    var elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Per vecchi browser Chrome/Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {    /* Per vecchi Firefox */
+        elem.mozRequestFullScreen();
+    } else if (elem.msRequestFullscreen) {     /* Per IE/Edge */
+        elem.msRequestFullscreen();
+    }
+    
+    // Rimuove l'evento dopo il primo tocco per evitare di rieseguirlo inutilmente
+    document.removeEventListener('click', attivaSchermoIntero);
+    document.removeEventListener('touchstart', attivaSchermoIntero);
+}
+
+// Ascolta sia il click del mouse che il tocco del dito (Touch)
+document.addEventListener('click', attivaSchermoIntero);
+document.addEventListener('touchstart', attivaSchermoIntero);
