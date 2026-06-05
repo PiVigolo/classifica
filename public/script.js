@@ -104,24 +104,27 @@ if (document.getElementById('classifica')) {
     // Poi ripete ogni secondo
     setInterval(aggiornaPagina, 1000);
 }
-// Forza lo schermo intero al primo tocco sul tablet
+// Forza lo schermo intero intercettando qualsiasi interazione sul tablet
 function attivaSchermoIntero() {
-    var elem = document.documentElement;
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Per vecchi browser Chrome/Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.mozRequestFullScreen) {    /* Per vecchi Firefox */
-        elem.mozRequestFullScreen();
-    } else if (elem.msRequestFullscreen) {     /* Per IE/Edge */
-        elem.msRequestFullscreen();
-    }
+    // Proviamo a prendere il body o l'intera pagina
+    var target = document.documentElement || document.body;
     
-    // Rimuove l'evento dopo il primo tocco per evitare di rieseguirlo inutilmente
-    document.removeEventListener('click', attivaSchermoIntero);
-    document.removeEventListener('touchstart', attivaSchermoIntero);
+    try {
+        if (target.requestFullscreen) {
+            target.requestFullscreen();
+        } else if (target.webkitRequestFullscreen) { /* Chrome Vecchio / Safari */
+            target.webkitRequestFullscreen();
+        } else if (target.mozRequestFullScreen) {    /* Firefox */
+            target.mozRequestFullScreen();
+        } else if (target.msRequestFullscreen) {     /* IE/Edge */
+            target.msRequestFullscreen();
+        }
+    } catch (err) {
+        console.log("Errore fullscreen:", err);
+    }
 }
 
-// Ascolta sia il click del mouse che il tocco del dito (Touch)
-document.addEventListener('click', attivaSchermoIntero);
-document.addEventListener('touchstart', attivaSchermoIntero);
+// Rimaniamo in ascolto su TUTTI i tipi di tocco possibili
+window.addEventListener('click', attivaSchermoIntero, false);
+window.addEventListener('touchstart', attivaSchermoIntero, false);
+window.addEventListener('touchend', attivaSchermoIntero, false);
