@@ -108,7 +108,7 @@ if (document.getElementById('classifica')) {
 function attivaSchermoIntero() {
     // Proviamo a prendere il body o l'intera pagina
     var target = document.documentElement || document.body;
-    
+    if(document.getElementById("classific")){
     try {
         if (target.requestFullscreen) {
             target.requestFullscreen();
@@ -121,6 +121,7 @@ function attivaSchermoIntero() {
         }
     } catch (err) {
         console.log("Errore fullscreen:", err);
+    }
     }
 }
 
