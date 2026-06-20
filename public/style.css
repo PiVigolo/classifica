@@ -45,7 +45,7 @@ body::after {
     height: 100px;
     z-index: 0;
 
-    background-image: url('logo.png');
+    background-image: url('logo.jpeg');
     background-size: contain;
     /* Adatta il logo senza distorcerlo */
     background-position: top right;
