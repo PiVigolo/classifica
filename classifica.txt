@@ -1,16 +1,8 @@
-EX-YU: 0 bevande
-AUREAL FACE: 0 bevande
-SBRONZI DI RIACE: 0 bevande
-SEVEN GROUP: 0 bevande
-NATJIVE: 0 bevande
-IMPR. CAPOVILLA: 0 bevande
-PROSPETTIVA VINCENTE: 0 bevande
-FC ONE ERECTION: 0 bevande
-FUTSAL 360: 0 bevande
-LEODARI JUNIORES: 0 bevande
-CAMPARI FC: 0 bevande
-G STARS: 0 bevande
-PMC CINGHIOS: 0 bevande
-VERNICIATURA PAREBON: 0 bevande
-GAINA TEAM: 0 bevande
-FAVELAS FC: 0 bevande
+CANTARANA: 0 bevande,
+NOVOLEDO CENTRO: 0 bevande,
+CAO DE QUA: 0 bevande,
+VIA IGNA: 0 bevande,
+SAN SIMEONE: 0 bevande,
+LA PIASSA: 0 bevande,
+PONTE ROSSO: 0 bevande,
+CAO DE LA: 0 bevande
