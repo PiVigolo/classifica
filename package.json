@@ -3,9 +3,23 @@
     "version": "1.0.0",
     "main": "server.js",
     "scripts": {
-      "start": "node server.js"
+        "start": "node server.js"
     },
     "dependencies": {
-      "express": "^4.19.2"
-    }
-  }
+        "express": "^4.22.2"
+    },
+    "description": "",
+    "devDependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/PiVigolo/classifica.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/PiVigolo/classifica/issues"
+    },
+    "homepage": "https://github.com/PiVigolo/classifica#readme"
+}

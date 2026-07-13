@@ -45,7 +45,7 @@ body::after {
     height: 100px;
     z-index: 0;
 
-    background-image: url('logo.jpeg');
+    /*background-image: url('logo.jpeg');*/
     background-size: contain;
     /* Adatta il logo senza distorcerlo */
     background-position: top right;
@@ -127,7 +127,7 @@ h1 {
     background-color: rgba(10, 15, 11, 0.75);
 
     /* Bordo verde che richiama i colori della Sport Power Cup */
-    border: 1px solid #10b981;
+    border: 1px solid #b97010;
 
     /* Arrotonda gli angoli delle card */
     border-radius: 8px;
@@ -163,8 +163,8 @@ h1 {
     margin: 0;
     color: #ffffff;
     /* Crea un effetto di bagliore verde neon attorno alle lettere */
-    text-shadow: 0 0 10px rgba(16, 185, 129, 0.6),
-        0 0 20px rgba(16, 185, 129, 0.4);
+    text-shadow: 0 0 10px rgba(202, 109, 3, 0.856),
+        0 0 20px rgba(185, 160, 16, 0.699);
 }
 
 .sottotitolo {
@@ -172,8 +172,8 @@ h1 {
     font-size: 1rem;
     font-weight: bold;
     letter-spacing: 4px;
-    color: #10b981;
-    /* Verde smeraldo brillante */
+    color: #b97510;
+    
     display: block;
     margin-top: 5px;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
