@@ -41,19 +41,20 @@ body::after {
     position: fixed;
     top: 30px;
     right: 30px;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     z-index: 0;
 
-    /*background-image: url('logo.jpeg');*/
+    background-image: url('logo.jpeg');
     background-size: contain;
     /* Adatta il logo senza distorcerlo */
     background-position: top right;
     background-repeat: no-repeat;
 
     pointer-events: none;
-    filter: invert(1);
+    filter: invert(0);
 }
+
 #adminBody::before {
     background-color: black;
     background-image: none !important;
@@ -61,7 +62,8 @@ body::after {
 
 /* RIMUOVE IL LOGO DALLA PAGINA ADMIN */
 #adminBody::after {
-    content: none !important; /* Rimuove lo pseudo-elemento che contiene il logo */
+    content: none !important;
+    /* Rimuove lo pseudo-elemento che contiene il logo */
 }
 
 body.nascondi-scroll {
@@ -173,7 +175,7 @@ h1 {
     font-weight: bold;
     letter-spacing: 4px;
     color: #b97510;
-    
+
     display: block;
     margin-top: 5px;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -299,13 +301,16 @@ button:hover {
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
 }
+
 /* Se lo schermo è più grande di 1920px (classico delle TV Full HD / 4K) */
 @media screen and (min-width: 1920px) {
     body {
-        font-size: 22px; /* Ingrandisce il testo generale */
+        font-size: 22px;
+        /* Ingrandisce il testo generale */
     }
-    
+
     h1 {
-        font-size: 3rem; /* Ingrandisce il titolo */
+        font-size: 3rem;
+        /* Ingrandisce il titolo */
     }
 }
