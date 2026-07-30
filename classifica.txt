@@ -1,8 +1,9 @@
-CANTARANA: 0 bevande,
-NOVOLEDO CENTRO: 0 bevande,
-CAO DE QUA: 0 bevande,
-VIA IGNA: 0 bevande,
-SAN SIMEONE: 0 bevande,
-LA PIASSA: 0 bevande,
-PONTE ROSSO: 0 bevande,
-CAO DE LA: 0 bevande
+LE TORRI DI MAROSTICA 0 bevande,
+SPUMP UP 0 bevande,
+PATETICO MADRID 0 bevande,
+PAYROLL & PLAYROLL 0 bevande,
+I COMMERCIANTI 0 bevande,
+FORREST JUMP 0 bevande,
+VOLLEY UN GIN TONIC 0 bevande,
+CHIACCHIERONI 3.0 0 bevande,
+ELEMENTI FINITI 0 bevande
