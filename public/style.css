@@ -4,11 +4,22 @@
     box-sizing: border-box;
 }
 
+:root {
+    --col-1: #3498db;
+    --col-2: #00286d;
+    --white: #ffffff;
+    --black: #000000;
+    --light-black: #222;
+    --shadow: #ffffff0d;
+    --count-plus: lime;
+    --cont-min: #cd3232;
+}
+
 body {
     font-family: sans-serif;
     margin: 0;
     padding: 0;
-    color: #ffffff;
+    color: var(--white);
 }
 
 body::before {
@@ -25,14 +36,10 @@ body::before {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-
-
     /* sfocatura:  */
-    filter: blur(4px);
-
-
-    /* Evita che si vedano i bordi bianchi causati dalla sfocatura */
-    transform: scale(1.05);
+    filter: blur(30px);
+    /* evita che si vedano i bordi bianchi causati dalla sfocatura */
+    transform: scale(1.55);
 }
 
 /*logo*/
@@ -45,7 +52,7 @@ body::after {
     height: 120px;
     z-index: 0;
 
-    background-image: url('logo.jpeg');
+    /*background-image: url('logo.jpeg');*/
     background-size: contain;
     /* Adatta il logo senza distorcerlo */
     background-position: top right;
@@ -56,7 +63,7 @@ body::after {
 }
 
 #adminBody::before {
-    background-color: black;
+    background-color: var(--black);
     background-image: none !important;
 }
 
@@ -112,7 +119,6 @@ h1 {
 }
 
 .card {
-    background: #222;
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 15px;
@@ -120,28 +126,39 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
-}
-
-.card {
+    box-shadow: 0 0 10px var(--shadow);
     /* Sfondo nero ma trasparente al 75% per far intravedere lo sfondo dietro */
-    background-color: rgba(10, 15, 11, 0.75);
+    background-color: var(--shadow);
 
     /* Bordo verde che richiama i colori della Sport Power Cup */
-    border: 1px solid #b97010;
+    border: 1px solid var(--col-1);
 
     /* Arrotonda gli angoli delle card */
     border-radius: 8px;
-
     /* Distanza interna del testo */
     padding: 20px;
+    
+}
+.classifica-item{
+  
+}
 
+@keyframes muoviGradiente {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.card:nth-child(1) {
     /* Colore del testo bianco per massimo contrasto */
-    color: #ffffff;
-
+    font-weight: 700 !important;
+    background: linear-gradient(40deg, var(--white), #d7d083, var(--white));
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: muoviGradiente 2.5s ease infinite;
     /* Un leggero effetto sfocatura dietro la card (opzionale ma molto moderno) */
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);  
+
 }
 
 .classifica-item {
@@ -163,10 +180,10 @@ h1 {
     font-style: italic;
     letter-spacing: 2px;
     margin: 0;
-    color: #ffffff;
+    color: var(--white);
     /* Crea un effetto di bagliore verde neon attorno alle lettere */
-    text-shadow: 0 0 10px rgba(202, 109, 3, 0.856),
-        0 0 20px rgba(185, 160, 16, 0.699);
+    text-shadow: 0 0 10px var(--col-1),
+        0 0 20px var(--col-2);
 }
 
 .sottotitolo {
@@ -174,22 +191,22 @@ h1 {
     font-size: 1rem;
     font-weight: bold;
     letter-spacing: 4px;
-    color: #b97510;
+    color: var(--col-1);
 
     display: block;
     margin-top: 5px;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 5px var(--shadow);
 }
 
 /* ADMIN */
 
 #adminBody::before {
-    background-color: black;
+    background-color: var(--black);
     background-image: none !important;
 }
 
 .admin-card {
-    background: #222;
+    background: var(--light-black);
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 15px;
@@ -198,20 +215,20 @@ h1 {
     justify-content: space-between;
     align-items: center;
 
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 10px var(--shadow);
     position: relative;
 }
 
 .counter {
     font-size: 40px;
-    color: lime;
+    color: var(--count-plus);
     font-weight: bold;
     margin-top: 10px;
 }
 
 button {
-    background: limegreen;
-    color: white;
+    background: var(--count-plus);
+    color: var(--white);
     border: none;
     padding: 14px 24px;
     border-radius: 12px;
@@ -222,7 +239,7 @@ button {
 }
 
 button.minus {
-    background: rgb(205, 50, 50);
+    background: var(--cont-min);
 }
 
 button:hover {
@@ -246,7 +263,7 @@ button:hover {
     top: -10px;
 
     font-size: 30px;
-    color: lime;
+    color: var(--count-plus);
 
     opacity: 0;
     pointer-events: none;
@@ -258,7 +275,7 @@ button:hover {
     top: -10px;
 
     font-size: 30px;
-    color: rgb(255, 0, 0);
+    color: var(--cont-min);
 
     opacity: 0;
     pointer-events: none;
@@ -270,7 +287,7 @@ button:hover {
     top: -10px;
 
     font-size: 30px;
-    color: rgb(0, 255, 17);
+    color: var(--count-plus);
 
     opacity: 0;
     pointer-events: none;
@@ -297,9 +314,9 @@ button:hover {
 .side-image {
     width: 50%;
     height: 50%;
-    background: #222;
+    background: var(--light-black);
     border-radius: 20px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 20px var(--shadow);
 }
 
 /* Se lo schermo è più grande di 1920px (classico delle TV Full HD / 4K) */
